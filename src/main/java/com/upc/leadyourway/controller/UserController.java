@@ -54,7 +54,7 @@ public class UserController {
 
     // URL: http://localhost:8080/api/leadyourway/v1/login
     // Method: POST
-    @Transactional(readOnly = true)
+    /*@Transactional(readOnly = true)
     @PostMapping("/login")
     public ResponseEntity<Long> getUserIdByEmailAndPassword(@RequestBody User user) {
         User foundUser = userRepository.findByUserEmailAndUserPassword(user.getUserEmail(), user.getUserPassword());
@@ -74,7 +74,7 @@ public class UserController {
         validateUser(user);
         existsUserByEmail(user);
         return new ResponseEntity<User>(userService.createUser(user), HttpStatus.CREATED);
-    }
+    }*/
 
     // URL: http://localhost:8080/api/leadyourway/v1/users/{userId}
     // Method: PUT
