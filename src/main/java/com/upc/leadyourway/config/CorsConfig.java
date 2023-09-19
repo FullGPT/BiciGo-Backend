@@ -13,8 +13,8 @@ public class CorsConfig{
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/leadyourway/v1/**")
-                        .allowedOrigins("http://localhost:4200")
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:4200", "https://lead-your-way.netlify.app")
                         .allowedMethods("*")
                         .allowedHeaders("*");
 
