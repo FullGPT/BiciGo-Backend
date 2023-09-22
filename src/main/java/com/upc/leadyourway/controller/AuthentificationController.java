@@ -55,11 +55,4 @@ public class AuthentificationController {
             HttpServletResponse response) throws IOException {
         authService.refreshToken(request, response);
     }
-
-
-
-
-
-
-
 }

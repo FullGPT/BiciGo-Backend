@@ -1,6 +1,7 @@
 package com.upc.leadyourway.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,7 +41,8 @@ public class User implements UserDetails {
     @Column(name="user_phone", nullable = true, length = 50)
     private String userPhone;
 
-    @Column(name="user_birth_date", nullable = false)
+
+    @Column(name="user_birth_date", nullable = true)
     private LocalDate userBirthDate;
 
     @Column(name="image_data", nullable = true)

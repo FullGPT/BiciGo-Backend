@@ -28,14 +28,13 @@ import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImp implements AuthService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private TokenRepository tokenRepository;
 
+    private final UserRepository userRepository;
+    private final TokenRepository tokenRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+
 
     @Override
     public AuthenticationResponse register(RegisterRequest registerRequest) {
