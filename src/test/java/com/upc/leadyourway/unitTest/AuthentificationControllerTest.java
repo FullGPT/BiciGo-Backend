@@ -10,6 +10,7 @@ import com.upc.leadyourway.repository.TokenRepository;
 import com.upc.leadyourway.repository.UserRepository;
 import com.upc.leadyourway.service.AuthService;
 import com.upc.leadyourway.service.JwtService;
+import com.upc.leadyourway.service.UserService;
 import com.upc.leadyourway.service.impl.AuthServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,6 @@ public class AuthentificationControllerTest {
     private PasswordEncoder passwordEncoder;
     @Mock
     private AuthenticationManager authenticationManager;
-
     private AuthServiceImp authService;
     @BeforeEach
     public void setUp() {
