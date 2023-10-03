@@ -3,23 +3,27 @@ package com.upc.leadyourway.integrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.upc.leadyourway.model.Bicycle;
 import com.upc.leadyourway.model.User;
+import com.upc.leadyourway.service.BicycleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 public class BicycleIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
-
+    @MockBean
+    private BicycleService bicycleService;
     @Test
     public void testPublishBicycle() throws Exception {
         Bicycle bicycle = Bicycle.builder()
@@ -35,16 +39,33 @@ public class BicycleIntegrationTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(bicycle);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/leadyourway/v1/bicycles/1")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/leadyourway/v1/bicycles/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isCreated())
                 .andReturn();
-
-        String responseBody = mvcResult.getResponse().getContentAsString();
-
     }
 
+    @Test
+    public void testEnterInformationBicycle() throws Exception{
+        User user = new User();
+        user.setId(1L);
+        Bicycle bicycleUpdated = new Bicycle(1L, "Bicicleta 1", "Bicicleta negra", 20.0, "Aro 20", "BMX", "image.jpg", user);
 
+        given(bicycleService.getBicycleById(1L)).willReturn(bicycleUpdated);
 
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/leadyourway/v1/bicycles/1")
+                        .content(asJsonString(bicycleUpdated))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

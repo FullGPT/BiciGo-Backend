@@ -34,7 +34,7 @@ public class BicycleServiceImpl implements BicycleService {
     @Override
     public Bicycle createBicycle(Long userId, Bicycle bicycle) {
         existsUserByUserId(userId);
-        userHasCard(userId);
+        //userHasCard(userId);
         bicycle.setUser(userService.getUserById(userId));
         validateBicycle(bicycle);
         return bicycleRepository.save(bicycle);
