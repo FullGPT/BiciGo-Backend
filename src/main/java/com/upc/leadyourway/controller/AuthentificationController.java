@@ -38,7 +38,7 @@ public class AuthentificationController {
 
     // URL: http://localhost:8080/api/leadyourway/v1/auth/login
     // Method: POST
-    @Transactional(readOnly = true)
+    //@Transactional(readOnly = true)
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) {
 
